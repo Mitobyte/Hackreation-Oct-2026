@@ -1,0 +1,177 @@
+<title>ERI Employer Finder</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single working column — gate, then filter rail on top of a dense employer table with a detail drawer row. */
+:root{
+ --bg:#f3f5f6; --panel:#ffffff; --ink:#15212b; --muted:#5a6873; --line:#d6dde2;
+ --accent:#1f5f8b; --accent-ink:#ffffff; --soft:#e3eef6;
+ --ok:#2f7a4d; --warn:#a86a09; --hold:#a33b3b; --none:#6b7780;
+ --display:"Archivo",system-ui,sans-serif; --body:"Public Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f161c;--panel:#16212a;--ink:#e6edf2;--muted:#9aa9b4;--line:#2a3843;--accent:#6fb3e3;--accent-ink:#0b1a24;--soft:#1b3242;--ok:#6fcf97;--warn:#e7b25a;--hold:#f08a8a;--none:#9aa9b4;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f161c;--panel:#16212a;--ink:#e6edf2;--muted:#9aa9b4;--line:#2a3843;--accent:#6fb3e3;--accent-ink:#0b1a24;--soft:#1b3242;--ok:#6fcf97;--warn:#e7b25a;--hold:#f08a8a;--none:#9aa9b4;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:20px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(26px,4vw,36px);letter-spacing:-.01em;margin:0;text-wrap:balance}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lede{color:var(--muted);max-width:68ch;margin:6px 0 0}
+.banner{border:1px dashed var(--warn);color:var(--ink);background:color-mix(in srgb,var(--warn) 10%,transparent);padding:10px 14px;border-radius:8px;font-size:14px}
+/* gate */
+.gate{max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px;display:grid;gap:12px;margin-top:8vh}
+label{font-size:13px;font-weight:600;color:var(--muted)}
+input,select{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 10px;width:100%;box-sizing:border-box;min-width:0}
+input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button{font:inherit;font-weight:600;border-radius:8px;padding:9px 14px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+button.ghost{background:transparent;color:var(--accent)}
+.err{color:var(--hold);font-size:14px;min-height:1.2em;margin:0}
+.hint{font-size:13px;color:var(--muted);margin:0}
+/* filters */
+.filters{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 14px;align-items:end}
+.field{display:grid;gap:4px;min-width:0}
+.ages{display:flex;gap:6px;align-items:center}.ages span{color:var(--muted)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.count{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.count b{color:var(--ink);font-weight:500}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+/* table */
+.tablebox{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;white-space:nowrap}
+th button{all:unset;cursor:pointer}th button:focus-visible{outline:2px solid var(--accent)}
+td.num{font-family:var(--mono)}
+tr:last-child td{border-bottom:0}
+.name{font-weight:600}
+.sub{color:var(--muted);font-size:13px}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.s-ready{color:var(--ok)}.s-hold{color:var(--hold)}.s-info{color:var(--warn)}
+.i-light{color:var(--ok)}.i-moderate{color:var(--warn)}.i-intensive{color:var(--hold)}.i-none{color:var(--none)}
+.doc{font-size:13px;color:var(--muted)}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:14px}
+textarea{width:100%;box-sizing:border-box;min-height:120px;font-family:var(--mono);font-size:12px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px}
+footer{color:var(--muted);font-size:13px;max-width:80ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+ <section id="gate" class="gate" aria-labelledby="gt">
+  <div class="eyebrow">ERI · staff only</div>
+  <h1 id="gt">ERI Employer Finder</h1>
+  <p class="hint">Enter the team password. Demo password: <b>eri-demo</b></p>
+  <form id="gateForm" class="field" autocomplete="off">
+   <label for="pw">Password</label>
+   <input id="pw" type="password" required>
+   <p class="err" id="pwErr" role="alert"></p>
+   <button type="submit">Open the finder</button>
+  </form>
+ </section>
+
+ <main id="app" hidden>
+  <header>
+   <div class="eyebrow">Wisconsin employers · helper-role screening</div>
+   <h1>ERI Employer Finder</h1>
+   <p class="lede">Each employer's public postings run through the Kwik Trip-ify skill. Search by name, age and place, then open the Word brief for the helper roles it carved.</p>
+  </header>
+  <div class="banner"><b>Prototype.</b> All 60 employers below are made-up sample data. The live version loads the real list from a database and links each employer's Word brief.</div>
+
+  <form class="filters" id="filters" aria-label="Filters" onsubmit="return false">
+   <div class="field"><label for="fName">Company name starts with</label><input id="fName" placeholder="e.g. Bad"></div>
+   <div class="field"><label for="fAgeMin">Company age (years)</label>
+     <div class="ages"><input id="fAgeMin" type="number" min="0" inputmode="numeric" placeholder="min" aria-label="Minimum age in years"><span>to</span><input id="fAgeMax" type="number" min="0" inputmode="numeric" placeholder="max" aria-label="Maximum age in years"></div></div>
+   <div class="field"><label for="fCounty">County</label><select id="fCounty"><option value="">All counties</option></select></div>
+   <div class="field"><label for="fCity">City</label><select id="fCity"><option value="">All cities</option></select></div>
+   <div class="field"><label for="fStatus">Brief status</label><select id="fStatus"><option value="">Any</option><option>ready</option><option>on hold</option><option>needs info</option></select></div>
+   <div class="field"><label for="fInt">Lightest role</label><select id="fInt"><option value="">Any</option><option>light</option><option>moderate</option><option>intensive</option></select></div>
+  </form>
+
+  <div class="bar">
+   <p class="count" id="count" aria-live="polite"></p>
+   <div class="actions"><a class="ghost" href="word/" style="align-self:center;margin-right:6px;color:var(--accent);font-weight:600">ChatGPT to Word</a><button type="button" class="ghost" id="reset">Clear filters</button><button type="button" id="copy">Copy results as CSV</button></div>
+  </div>
+  <textarea id="csvOut" hidden aria-label="CSV of the filtered results"></textarea>
+
+  <div class="tablebox">
+   <table>
+    <caption class="sr" style="position:absolute;left:-9999px">Employers matching the filters</caption>
+    <thead><tr>
+     <th scope="col"><button data-sort="name">Company</button></th>
+     <th scope="col"><button data-sort="age">Age</button></th>
+     <th scope="col"><button data-sort="city">Location</button></th>
+     <th scope="col"><button data-sort="roles">Helper roles</button></th>
+     <th scope="col">Lightest role</th>
+     <th scope="col">Brief status</th>
+     <th scope="col">Bus</th>
+     <th scope="col">Word brief</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+   </table>
+  </div>
+  <footer>
+   Support level describes the role, never a person. No client information is stored here. Hours and pay for any client go to an ERI benefits counselor first. The password screen on this prototype is for show; the live version sits behind a real sign-in (for example Cloudflare Access or Supabase Auth).
+  </footer>
+ </main>
+</div>
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+const YEAR=2026;
+/* Sample data. In the live version this is replaced by a query to the database. */
+const DATA=[{"id":1,"name":"Badger Cinemas","industry":"Entertainment","founded":1970,"city":"Oak Creek","county":"Milwaukee","roles":3,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":4,"name":"Badger Insurance","industry":"Office","founded":1978,"city":"Appleton","county":"Outagamie","roles":2,"intensity":"moderate","status":"ready","bus":"yes","brief":null},{"id":38,"name":"Bluff Hardware","industry":"Retail","founded":1985,"city":"Brookfield","county":"Waukesha","roles":1,"intensity":"light","status":"ready","bus":"no","brief":null},{"id":56,"name":"Bluff Insurance","industry":"Office","founded":2005,"city":"De Pere","county":"Brown","roles":3,"intensity":"intensive","status":"ready","bus":"yes","brief":null},{"id":31,"name":"Bluff Market","industry":"Grocery","founded":2020,"city":"Oshkosh","county":"Winnebago","roles":2,"intensity":"intensive","status":"ready","bus":"yes","brief":null},{"id":41,"name":"Bluff Packaging","industry":"Manufacturing","founded":1993,"city":"Eau Claire","county":"Eau Claire","roles":0,"intensity":"\u2014","status":"needs info","bus":"yes","brief":null},{"id":23,"name":"Bluff Senior Living","industry":"Healthcare","founded":1966,"city":"Beloit","county":"Rock","roles":1,"intensity":"light","status":"ready","bus":"unknown","brief":null},{"id":44,"name":"Brule Bakery","industry":"Food service","founded":2006,"city":"La Crosse","county":"La Crosse","roles":2,"intensity":"light","status":"ready","bus":"unknown","brief":null},{"id":29,"name":"Brule Logistics","industry":"Warehouse","founded":2004,"city":"Cottage Grove","county":"Dane","roles":3,"intensity":"moderate","status":"ready","bus":"yes","brief":null},{"id":10,"name":"Brule Outfitters","industry":"Retail","founded":1988,"city":"Watertown","county":"Jefferson","roles":2,"intensity":"light","status":"ready","bus":"unknown","brief":null},{"id":51,"name":"Capitol Hardware","industry":"Retail","founded":2002,"city":"Eau Claire","county":"Eau Claire","roles":2,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":46,"name":"Capitol Inn","industry":"Hospitality","founded":2013,"city":"Portage","county":"Columbia","roles":2,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":33,"name":"Capitol Market","industry":"Grocery","founded":1993,"city":"Schofield","county":"Marathon","roles":3,"intensity":"moderate","status":"ready","bus":"unknown","brief":null},{"id":18,"name":"Capitol Outfitters","industry":"Retail","founded":1976,"city":"Altoona","county":"Eau Claire","roles":2,"intensity":"moderate","status":"ready","bus":"yes","brief":null},{"id":60,"name":"Cedar Cinemas","industry":"Entertainment","founded":2020,"city":"Green Bay","county":"Brown","roles":2,"intensity":"moderate","status":"ready","bus":"no","brief":null},{"id":48,"name":"Driftless Outfitters","industry":"Retail","founded":1958,"city":"Cottage Grove","county":"Dane","roles":2,"intensity":"intensive","status":"ready","bus":"yes","brief":null},{"id":49,"name":"Driftless Senior Living","industry":"Healthcare","founded":1990,"city":"Neenah","county":"Winnebago","roles":3,"intensity":"light","status":"ready","bus":"unknown","brief":null},{"id":32,"name":"Fox River Cinemas","industry":"Entertainment","founded":1995,"city":"La Crosse","county":"La Crosse","roles":1,"intensity":"light","status":"ready","bus":"unknown","brief":null},{"id":37,"name":"Fox River Dental Group","industry":"Healthcare","founded":1992,"city":"Kaukauna","county":"Outagamie","roles":2,"intensity":"intensive","status":"on hold","bus":"unknown","brief":null},{"id":59,"name":"Fox River Hardware","industry":"Retail","founded":1972,"city":"La Crosse","county":"La Crosse","roles":2,"intensity":"intensive","status":"ready","bus":"unknown","brief":null},{"id":39,"name":"Fox River Property Services","industry":"Facilities","founded":1962,"city":"Oshkosh","county":"Winnebago","roles":3,"intensity":"light","status":"ready","bus":"unknown","brief":null},{"id":53,"name":"Great Lakes County Services","industry":"Library/Public","founded":2024,"city":"Green Bay","county":"Brown","roles":0,"intensity":"\u2014","status":"needs info","bus":"yes","brief":null},{"id":12,"name":"Great Lakes Outfitters","industry":"Retail","founded":1994,"city":"Green Bay","county":"Brown","roles":1,"intensity":"light","status":"on hold","bus":"yes","brief":null},{"id":17,"name":"Harbor Athletic Club","industry":"Fitness","founded":2011,"city":"Ashwaubenon","county":"Brown","roles":2,"intensity":"moderate","status":"ready","bus":"yes","brief":null},{"id":52,"name":"Harbor Cinemas","industry":"Entertainment","founded":2006,"city":"Kaukauna","county":"Outagamie","roles":3,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":3,"name":"Harbor County Services","industry":"Library/Public","founded":2019,"city":"Columbus","county":"Columbia","roles":2,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":15,"name":"Harbor Foods","industry":"Grocery","founded":1988,"city":"Oak Creek","county":"Milwaukee","roles":2,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":34,"name":"Harbor Market","industry":"Grocery","founded":1956,"city":"Watertown","county":"Jefferson","roles":3,"intensity":"moderate","status":"on hold","bus":"unknown","brief":null},{"id":45,"name":"Juniper Bakery","industry":"Food service","founded":2001,"city":"Watertown","county":"Jefferson","roles":2,"intensity":"light","status":"on hold","bus":"no","brief":null},{"id":20,"name":"Kettle Credit Union","industry":"Office","founded":2021,"city":"Columbus","county":"Columbia","roles":3,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":11,"name":"Kettle Dental Group","industry":"Healthcare","founded":1958,"city":"Onalaska","county":"La Crosse","roles":3,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":5,"name":"Kettle Inn","industry":"Hospitality","founded":1958,"city":"Oshkosh","county":"Winnebago","roles":1,"intensity":"moderate","status":"ready","bus":"yes","brief":null},{"id":22,"name":"Kettle Insurance","industry":"Office","founded":2008,"city":"Cottage Grove","county":"Dane","roles":2,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":36,"name":"Lakeshore Bakery","industry":"Food service","founded":1977,"city":"Schofield","county":"Marathon","roles":1,"intensity":"moderate","status":"on hold","bus":"yes","brief":null},{"id":21,"name":"Lakeshore Cinemas","industry":"Entertainment","founded":1985,"city":"Schofield","county":"Marathon","roles":3,"intensity":"light","status":"on hold","bus":"no","brief":null},{"id":50,"name":"Northwoods Hardware","industry":"Retail","founded":1972,"city":"Oak Creek","county":"Milwaukee","roles":3,"intensity":"moderate","status":"ready","bus":"yes","brief":null},{"id":27,"name":"Northwoods Inn","industry":"Hospitality","founded":2021,"city":"Middleton","county":"Dane","roles":2,"intensity":"moderate","status":"on hold","bus":"no","brief":null},{"id":16,"name":"Northwoods Market","industry":"Grocery","founded":1976,"city":"Wausau","county":"Marathon","roles":2,"intensity":"light","status":"on hold","bus":"unknown","brief":null},{"id":54,"name":"Oak Leaf Outfitters","industry":"Retail","founded":2014,"city":"Janesville","county":"Rock","roles":1,"intensity":"moderate","status":"on hold","bus":"yes","brief":null},{"id":47,"name":"Oak Leaf Property Services","industry":"Facilities","founded":1996,"city":"Schofield","county":"Marathon","roles":1,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":7,"name":"Oak Leaf Senior Living","industry":"Healthcare","founded":1980,"city":"De Pere","county":"Brown","roles":2,"intensity":"light","status":"ready","bus":"no","brief":null},{"id":8,"name":"Old Mill Dental Group","industry":"Healthcare","founded":2013,"city":"Schofield","county":"Marathon","roles":3,"intensity":"moderate","status":"ready","bus":"yes","brief":null},{"id":9,"name":"Old Mill Diner","industry":"Food service","founded":1963,"city":"Altoona","county":"Eau Claire","roles":1,"intensity":"light","status":"ready","bus":"no","brief":null},{"id":28,"name":"Old Mill Insurance","industry":"Office","founded":2022,"city":"Oshkosh","county":"Winnebago","roles":1,"intensity":"moderate","status":"ready","bus":"yes","brief":null},{"id":26,"name":"Old Mill Logistics","industry":"Warehouse","founded":2003,"city":"Schofield","county":"Marathon","roles":1,"intensity":"light","status":"ready","bus":"no","brief":null},{"id":55,"name":"Old Mill Property Services","industry":"Facilities","founded":1981,"city":"Columbus","county":"Columbia","roles":2,"intensity":"moderate","status":"ready","bus":"unknown","brief":null},{"id":35,"name":"Prairie Athletic Club","industry":"Fitness","founded":1982,"city":"Kaukauna","county":"Outagamie","roles":3,"intensity":"moderate","status":"ready","bus":"unknown","brief":null},{"id":6,"name":"Prairie Insurance","industry":"Office","founded":2019,"city":"Madison","county":"Dane","roles":2,"intensity":"light","status":"ready","bus":"unknown","brief":null},{"id":25,"name":"Prairie Packaging","industry":"Manufacturing","founded":1952,"city":"La Crosse","county":"La Crosse","roles":2,"intensity":"moderate","status":"ready","bus":"no","brief":null},{"id":43,"name":"Rock Prairie Property Services","industry":"Facilities","founded":1985,"city":"Altoona","county":"Eau Claire","roles":3,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":13,"name":"Sandhill Athletic Club","industry":"Fitness","founded":2014,"city":"Beloit","county":"Rock","roles":3,"intensity":"intensive","status":"ready","bus":"yes","brief":null},{"id":14,"name":"Sandhill Bakery","industry":"Food service","founded":1955,"city":"Columbus","county":"Columbia","roles":2,"intensity":"moderate","status":"on hold","bus":"no","brief":null},{"id":58,"name":"Sandhill County Services","industry":"Library/Public","founded":1952,"city":"Eau Claire","county":"Eau Claire","roles":1,"intensity":"intensive","status":"ready","bus":"unknown","brief":null},{"id":24,"name":"Sandhill Property Services","industry":"Facilities","founded":1975,"city":"Watertown","county":"Jefferson","roles":2,"intensity":"light","status":"ready","bus":"unknown","brief":null},{"id":40,"name":"Sandhill Senior Living","industry":"Healthcare","founded":2013,"city":"New Berlin","county":"Waukesha","roles":1,"intensity":"light","status":"ready","bus":"no","brief":null},{"id":57,"name":"Two Rivers County Services","industry":"Library/Public","founded":2005,"city":"Kaukauna","county":"Outagamie","roles":0,"intensity":"\u2014","status":"needs info","bus":"unknown","brief":null},{"id":42,"name":"Wolf River Athletic Club","industry":"Fitness","founded":1985,"city":"Wausau","county":"Marathon","roles":1,"intensity":"intensive","status":"ready","bus":"unknown","brief":null},{"id":2,"name":"Wolf River Logistics","industry":"Warehouse","founded":1970,"city":"Portage","county":"Columbia","roles":3,"intensity":"light","status":"ready","bus":"yes","brief":null},{"id":30,"name":"Wolf River Market","industry":"Grocery","founded":2014,"city":"Appleton","county":"Outagamie","roles":2,"intensity":"light","status":"ready","bus":"no","brief":null},{"id":19,"name":"Yahara Outfitters","industry":"Retail","founded":1978,"city":"Columbus","county":"Columbia","roles":1,"intensity":"light","status":"on hold","bus":"no","brief":null}];
+const $=s=>document.querySelector(s);
+const PASS="eri-demo";
+function openApp(){ $("#gate").hidden=true; $("#app").hidden=false; try{sessionStorage.setItem("eri-ok","1")}catch(e){} render(); }
+$("#gateForm").addEventListener("submit",e=>{e.preventDefault(); if($("#pw").value.trim()===PASS){openApp()} else {$("#pwErr").textContent="That password did not match. Check the team card and try again.";}});
+try{ if(sessionStorage.getItem("eri-ok")==="1") openApp(); }catch(e){}
+
+const counties=[...new Set(DATA.map(d=>d.county))].sort();
+counties.forEach(c=>$("#fCounty").add(new Option(c+" County",c)));
+function fillCities(){ const c=$("#fCounty").value; const cur=$("#fCity").value; const sel=$("#fCity"); sel.length=1;
+  [...new Set(DATA.filter(d=>!c||d.county===c).map(d=>d.city))].sort().forEach(x=>sel.add(new Option(x,x)));
+  if([...sel.options].some(o=>o.value===cur)) sel.value=cur; }
+fillCities();
+let sortKey="name", sortDir=1;
+const rank={light:1,moderate:2,intensive:3,"—":9};
+function filtered(){
+  const n=$("#fName").value.trim().toLowerCase(), amin=$("#fAgeMin").value, amax=$("#fAgeMax").value,
+        c=$("#fCounty").value, city=$("#fCity").value, st=$("#fStatus").value, it=$("#fInt").value;
+  return DATA.filter(d=>{const age=YEAR-d.founded;
+    return (!n||d.name.toLowerCase().startsWith(n)) && (amin===""||age>=+amin) && (amax===""||age<=+amax)
+      && (!c||d.county===c) && (!city||d.city===city) && (!st||d.status===st) && (!it||d.intensity===it);})
+   .sort((a,b)=>{const va=sortKey==="age"?YEAR-a.founded:a[sortKey], vb=sortKey==="age"?YEAR-b.founded:b[sortKey];
+     return (va>vb?1:va<vb?-1:0)*sortDir;});
+}
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+function render(){
+  const rows=filtered();
+  $("#count").innerHTML=`<b>${rows.length}</b> of ${DATA.length} employers`;
+  $("#rows").innerHTML=rows.length?rows.map(d=>{const age=YEAR-d.founded;
+   const sc=d.status==="ready"?"s-ready":d.status==="on hold"?"s-hold":"s-info";
+   const ic=d.intensity==="—"?"i-none":"i-"+d.intensity;
+   return `<tr><td><div class="name">${esc(d.name)}</div><div class="sub">${esc(d.industry)}</div></td>
+   <td class="num">${age} yrs<div class="sub">since ${d.founded}</div></td>
+   <td>${esc(d.city)}<div class="sub">${esc(d.county)} County</div></td>
+   <td class="num">${d.roles}</td>
+   <td><span class="pill ${ic}">${d.intensity==="—"?"none yet":d.intensity}</span></td>
+   <td><span class="pill ${sc}">${d.status}</span></td>
+   <td>${d.bus}</td>
+   <td class="doc">${d.brief?`<a href="${esc(d.brief)}">Open .docx</a>`:"not generated yet"}</td></tr>`}).join("")
+   :`<tr><td colspan="8" class="empty">No employers match. Clear a filter or widen the age range.</td></tr>`;
+  document.querySelectorAll("th button").forEach(b=>b.setAttribute("aria-sort", b.dataset.sort===sortKey?(sortDir>0?"ascending":"descending"):"none"));
+}
+["#fName","#fAgeMin","#fAgeMax","#fStatus","#fInt","#fCity"].forEach(s=>$(s).addEventListener("input",render));
+$("#fCounty").addEventListener("input",()=>{fillCities();render()});
+document.querySelectorAll("th button").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.sort; sortDir=(k===sortKey)?-sortDir:1; sortKey=k; render();}));
+$("#reset").addEventListener("click",()=>{$("#filters").reset(); fillCities(); render();});
+function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(el._t);el._t=setTimeout(()=>el.hidden=true,2200)}
+$("#copy").addEventListener("click",()=>{
+  const cols=["name","industry","founded","city","county","roles","intensity","status","bus"];
+  const q=v=>/[",\n]/.test(v)?`"${String(v).replace(/"/g,'""')}"`:v;
+  const csv=[cols.join(",")].concat(filtered().map(d=>cols.map(c=>q(d[c])).join(","))).join("\n");
+  const box=$("#csvOut"); box.value=csv;
+  navigator.clipboard.writeText(csv).then(()=>{box.hidden=true;toast("Copied "+filtered().length+" rows as CSV")})
+   .catch(()=>{box.hidden=false;box.focus();box.select();toast("Select all and copy the CSV below")});
+});
+</script>

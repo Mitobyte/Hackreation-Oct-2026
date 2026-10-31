@@ -19,6 +19,15 @@ A second skill guides a job developer through a 31-question employer interview a
 
 It never asks for a disability or diagnosis, never scores or ranks candidates, and makes no hiring decision. Every output is a draft for ERI review.
 
+## Live prototype
+
+**https://eri-employer-finder.pages.dev/** (demo password `eri-demo`; all 60 employers are made-up sample data)
+
+- **Employer Finder:** search Wisconsin employers screened for helper roles by company name (starts with), company age, county and city, plus brief status and lightest role. Copy any search as CSV. The live version would load a real list from a free database (Supabase) and link a Word brief per employer. The password screen is for show; real use goes behind Cloudflare Access.
+- **ChatGPT to Word** (`/word/`): paste a ChatGPT answer and download a formatted .docx. It runs in the browser; nothing is uploaded. The same tool is `chatgpt-kit/ChatGPT-to-Word.html` for offline use.
+
+A 67-second captioned demo video of the kit in free ChatGPT was shared with ERI separately (this folder keeps text files only).
+
 ## Folders
 
 | Folder | What is in it |
@@ -26,6 +35,7 @@ It never asks for a disability or diagnosis, never scores or ranks candidates, a
 | `skills/` | The three skills in Agent Skills format (`SKILL.md` + references + Python scripts). `render_roles.py` validates a draft against the rubric and writes Markdown and Word |
 | `chatgpt-kit/` | The same skills as one file for free ChatGPT, plus `QUICKSTART.md` for staff |
 | `example-briefs/` | Eight runs on real public postings (Best Buy, Walmart, a dental office, Waukesha County, Strattec, Connct, Johnson Health Tech), with an index |
+| `employer-finder/` | Source of the live prototype: `index.html` (finder) and `word/` (Markdown-to-Word converter, no libraries) |
 | `handoff/` | One-pagers for ERI, the full problem-discovery and Setworks reports, and an offer to rank Wisconsin employers (employers, not people) with an illustrative sample |
 
 ## Run it

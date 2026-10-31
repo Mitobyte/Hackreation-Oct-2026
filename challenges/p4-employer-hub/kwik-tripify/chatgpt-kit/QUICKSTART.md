@@ -24,6 +24,11 @@ Safest habit: make the roles with no person's details, then match the person you
 
 **Employer interview:** same steps with the "Employer interview" starter prompt. It asks one or two questions at a time, then fills a role card and a 15-point readiness checklist.
 
+## Get it into Word
+- **Signed in to ChatGPT:** type "Give me this brief as a Word (.docx) file." If a canvas or download link appears, click **Download** and choose **Word**.
+- **Any account, always works:** click the **Copy** icon under the answer, open **ChatGPT-to-Word.html** (double-click it; it runs on your computer, nothing is uploaded), paste, and click **Download Word file**. You get headings, bullets and tables.
+- Quick option: paste the copied answer straight into Word. Check the tables.
+
 ## Know the limits
 - Free accounts get **3 file uploads a day**. The kit is one upload; use a new chat per posting, or paste the text instead.
 - Long chats get forgetful on free. **One posting per chat.**

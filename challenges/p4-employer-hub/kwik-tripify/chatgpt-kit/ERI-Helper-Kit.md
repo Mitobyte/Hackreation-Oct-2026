@@ -17,6 +17,7 @@ Run only the skill the user picks. Never ask for client-identifying information.
 **Employer interview:** "Use the ERI Helper Kit, Skill 2. I am meeting an employer: [employer, site, industry]. Start with prep, then ask me the interview questions one or two at a time."
 **Role card:** "Fill the role card and readiness checklist from what I told you. List open questions with owners and draft the follow-up email."
 **Check my draft:** "Check this draft against Part 1 and the self-check. Tell me what to fix: [paste draft]."
+**Word file:** "Give me this brief as a Word (.docx) file."
 **If the answer stops early:** "continue".
 
 ---
@@ -235,6 +236,12 @@ Profile used, role, tasks, tasks left out, schedule, supports, "Employer-facing 
 ```
 End the reply with one line: "Self-check: all 10 items passed" or "Self-check: fixed <what>". Do not show the working.
 If the reply is long, finish a whole section before stopping and tell the user to type "continue".
+
+## Getting a Word (.docx) file
+When the user asks for Word or .docx, or says "make it a Word file":
+1. If you can create downloadable files (a canvas document or a data-analysis/Python tool), produce the whole brief as one .docx, or put it in a single canvas document titled "Helper roles - <employer>" so the user can click Download and choose Word (.docx).
+2. If you cannot, say so in one line and give the whole brief again as one clean Markdown answer, with no other text. Then tell the user: "Click Copy under this answer and paste it into the ERI ChatGPT-to-Word page (ChatGPT-to-Word.html), or paste it straight into Word."
+Never claim a file was created unless a download link or canvas actually appears.
 
 ## Self-check (silently run every item before you answer; fix and recheck; no software needed)
 1. No role or variation includes a keep-with-staff task or a task with any rating of 3.
