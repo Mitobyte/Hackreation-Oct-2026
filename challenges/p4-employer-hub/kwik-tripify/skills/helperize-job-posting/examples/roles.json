@@ -1,0 +1,589 @@
+{
+ "source": {
+  "title": "Grocery Store Associate",
+  "employer": "Lakeside Market (fictional example)",
+  "url": "examples/sample-posting.html",
+  "location": "Madison, WI",
+  "pay": "$16-18/hour",
+  "hours": "part-time; evenings and weekends required"
+ },
+ "tasks": [
+  {
+   "id": "t1",
+   "task": "Greet customers and point them to products",
+   "from_posting": "Greet customers and answer questions about where products are located",
+   "inferred": false,
+   "frequency": "throughout shift",
+   "standard": "customer greeted within a few seconds; directed to the right aisle or handed to a coworker",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 1,
+    "sequencing": 1,
+    "time_management": 1,
+    "attention": 2,
+    "organization": 1,
+    "flexibility": 1,
+    "social_communication": 2,
+    "sensory_load": 2,
+    "paperwork": 0
+   }
+  },
+  {
+   "id": "t2",
+   "task": "Run the register and process returns",
+   "from_posting": "Operate the cash register, handle cash and card payments, and process returns",
+   "inferred": false,
+   "frequency": "throughout shift",
+   "standard": "drawer balances",
+   "keep_with_staff": true,
+   "ef": {
+    "working_memory": 3,
+    "sequencing": 3,
+    "time_management": 3,
+    "attention": 3,
+    "organization": 2,
+    "flexibility": 2,
+    "social_communication": 3,
+    "sensory_load": 2,
+    "paperwork": 1
+   }
+  },
+  {
+   "id": "t3",
+   "task": "Unload delivery trucks",
+   "from_posting": "Unload delivery trucks and stock shelves...",
+   "inferred": false,
+   "frequency": "when trucks arrive",
+   "standard": "pallets moved to the back room by the truck's departure",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 1,
+    "sequencing": 2,
+    "time_management": 2,
+    "attention": 2,
+    "organization": 2,
+    "flexibility": 2,
+    "social_communication": 1,
+    "sensory_load": 2,
+    "paperwork": 0
+   }
+  },
+  {
+   "id": "t4",
+   "task": "Stock shelves, coolers, and freezers, rotating by date (FIFO)",
+   "from_posting": "...stock shelves, coolers, and freezers, rotating product by date (FIFO)",
+   "inferred": false,
+   "frequency": "daily",
+   "standard": "older dates in front; no gaps on the shelf",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 2,
+    "sequencing": 2,
+    "time_management": 1,
+    "attention": 2,
+    "organization": 2,
+    "flexibility": 1,
+    "social_communication": 1,
+    "sensory_load": 2,
+    "paperwork": 1
+   }
+  },
+  {
+   "id": "t5",
+   "task": "Face shelves",
+   "from_posting": "Face shelves so products are pulled forward and labels face out",
+   "inferred": false,
+   "frequency": "each aisle twice per shift",
+   "standard": "front row full; every label faces out",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 1,
+    "sequencing": 1,
+    "time_management": 1,
+    "attention": 1,
+    "organization": 1,
+    "flexibility": 0,
+    "social_communication": 1,
+    "sensory_load": 1,
+    "paperwork": 0
+   }
+  },
+  {
+   "id": "t6",
+   "task": "Bring carts in from the parking lot and organize the corral",
+   "from_posting": "Retrieve shopping carts from the parking lot and keep the cart corral organized",
+   "inferred": false,
+   "frequency": "every 30 minutes",
+   "standard": "no more than 5 carts in the lot; corral rows straight",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 1,
+    "sequencing": 1,
+    "time_management": 1,
+    "attention": 2,
+    "organization": 1,
+    "flexibility": 1,
+    "social_communication": 1,
+    "sensory_load": 2,
+    "paperwork": 0
+   }
+  },
+  {
+   "id": "t7",
+   "task": "Clean restrooms on the schedule",
+   "from_posting": "Clean restrooms, sweep and mop floors, and empty trash on a set schedule",
+   "inferred": false,
+   "frequency": "every 2 hours",
+   "standard": "cleaning log initialed; supplies full; floor dry",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 2,
+    "sequencing": 2,
+    "time_management": 2,
+    "attention": 1,
+    "organization": 1,
+    "flexibility": 1,
+    "social_communication": 0,
+    "sensory_load": 2,
+    "paperwork": 1
+   }
+  },
+  {
+   "id": "t8",
+   "task": "Sweep and mop sales floor",
+   "from_posting": "Clean restrooms, sweep and mop floors...",
+   "inferred": false,
+   "frequency": "twice per shift",
+   "standard": "no debris; wet-floor sign out until dry",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 1,
+    "sequencing": 1,
+    "time_management": 1,
+    "attention": 1,
+    "organization": 1,
+    "flexibility": 1,
+    "social_communication": 1,
+    "sensory_load": 1,
+    "paperwork": 0
+   }
+  },
+  {
+   "id": "t9",
+   "task": "Empty trash cans",
+   "from_posting": "...and empty trash on a set schedule",
+   "inferred": false,
+   "frequency": "every 2 hours",
+   "standard": "cans under half full; new liner in",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 1,
+    "sequencing": 1,
+    "time_management": 1,
+    "attention": 1,
+    "organization": 1,
+    "flexibility": 0,
+    "social_communication": 0,
+    "sensory_load": 1,
+    "paperwork": 0
+   }
+  },
+  {
+   "id": "t10",
+   "task": "Break down cardboard boxes",
+   "from_posting": "Break down cardboard boxes and run the baler",
+   "inferred": false,
+   "frequency": "after stocking",
+   "standard": "boxes flat and stacked by the baler",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 1,
+    "sequencing": 1,
+    "time_management": 1,
+    "attention": 1,
+    "organization": 1,
+    "flexibility": 0,
+    "social_communication": 0,
+    "sensory_load": 1,
+    "paperwork": 0
+   }
+  },
+  {
+   "id": "t11",
+   "task": "Run the cardboard baler",
+   "from_posting": "...and run the baler",
+   "inferred": false,
+   "frequency": "daily",
+   "standard": "bales tied and moved",
+   "keep_with_staff": true,
+   "ef": {
+    "working_memory": 2,
+    "sequencing": 2,
+    "time_management": 1,
+    "attention": 3,
+    "organization": 1,
+    "flexibility": 1,
+    "social_communication": 0,
+    "sensory_load": 2,
+    "paperwork": 0
+   }
+  },
+  {
+   "id": "t12",
+   "task": "Check expiration dates and pull expired items",
+   "from_posting": "Check expiration dates and pull expired items",
+   "inferred": false,
+   "frequency": "daily, set aisles",
+   "standard": "no expired items on the shelf; pulled items logged",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 1,
+    "sequencing": 1,
+    "time_management": 1,
+    "attention": 2,
+    "organization": 2,
+    "flexibility": 1,
+    "social_communication": 1,
+    "sensory_load": 1,
+    "paperwork": 2
+   }
+  },
+  {
+   "id": "t13",
+   "task": "Change prices and hang shelf tags",
+   "from_posting": "Help with price changes and put up shelf tags",
+   "inferred": false,
+   "frequency": "weekly",
+   "standard": "every tag matches the price list",
+   "keep_with_staff": false,
+   "ef": {
+    "working_memory": 2,
+    "sequencing": 2,
+    "time_management": 1,
+    "attention": 2,
+    "organization": 2,
+    "flexibility": 1,
+    "social_communication": 0,
+    "sensory_load": 1,
+    "paperwork": 2
+   }
+  },
+  {
+   "id": "t14",
+   "task": "Resolve customer complaints",
+   "from_posting": "Resolve customer complaints and call a manager when needed",
+   "inferred": false,
+   "frequency": "as needed",
+   "standard": "customer handed to a manager when unresolved",
+   "keep_with_staff": true,
+   "ef": {
+    "working_memory": 2,
+    "sequencing": 2,
+    "time_management": 2,
+    "attention": 2,
+    "organization": 2,
+    "flexibility": 3,
+    "social_communication": 3,
+    "sensory_load": 2,
+    "paperwork": 0
+   }
+  },
+  {
+   "id": "t15",
+   "task": "Open or close the store and count the drawer",
+   "from_posting": "Open or close the store, including counting the cash drawer",
+   "inferred": false,
+   "frequency": "daily",
+   "standard": "store secured; drawer balanced",
+   "keep_with_staff": true,
+   "ef": {
+    "working_memory": 3,
+    "sequencing": 3,
+    "time_management": 2,
+    "attention": 2,
+    "organization": 2,
+    "flexibility": 1,
+    "social_communication": 1,
+    "sensory_load": 1,
+    "paperwork": 2
+   }
+  }
+ ],
+ "roles": [
+  {
+   "title": "Store Care Helper (weekday mornings)",
+   "summary": "Keeps the sales floor clean and clear: sweeping and mopping, emptying trash, and breaking down boxes after stocking. Associates can stay on the register and with customers during the morning rush.",
+   "task_ids": [
+    "t8",
+    "t9",
+    "t10"
+   ],
+   "hours_per_week": {
+    "min": 10,
+    "max": 15
+   },
+   "schedule": "3 weekday mornings, about 9:00-12:00, set around Madison Metro or paratransit times",
+   "pay_note": "same $16-18 starting range as other associates",
+   "ef_profile": {
+    "working_memory": 1,
+    "sequencing": 1,
+    "time_management": 1,
+    "attention": 1,
+    "organization": 1,
+    "flexibility": 1,
+    "social_communication": 1,
+    "sensory_load": 1,
+    "paperwork": 0
+   },
+   "support_intensity": "light",
+   "supports": [
+    "picture checklist of the cleaning route at the supply closet",
+    "phone timer for the every-2-hours trash round",
+    "one named coworker to ask when supplies run out",
+    "job coach for the first week, then fading"
+   ],
+   "frees_up": "associates who leave the register to sweep, empty trash, or clear boxes",
+   "why_this_bundle": "all floor-care tasks on one route, one supply closet, done in the quieter morning",
+   "growth_path": "add facing shelves (t5), then restroom cleaning with a cleaning log (t7), then stocking (t4)",
+   "variations": [
+    {
+     "name": "Core",
+     "task_ids": [
+      "t9"
+     ],
+     "schedules": [
+      {
+       "days_per_week": 2,
+       "hours_per_day": 2,
+       "days": "two weekday mornings"
+      },
+      {
+       "days_per_week": 3,
+       "hours_per_day": 2
+      }
+     ],
+     "best_when": "prefers one task at a time on a fixed route and a short shift"
+    },
+    {
+     "name": "Standard",
+     "task_ids": [
+      "t8",
+      "t9",
+      "t10"
+     ],
+     "schedules": [
+      {
+       "days_per_week": 3,
+       "hours_per_day": 3
+      },
+      {
+       "days_per_week": 3,
+       "hours_per_day": 5
+      }
+     ],
+     "best_when": "ready for three floor-care tasks on one route"
+    },
+    {
+     "name": "Plus",
+     "task_ids": [
+      "t8",
+      "t9",
+      "t10",
+      "t5"
+     ],
+     "schedules": [
+      {
+       "days_per_week": 3,
+       "hours_per_day": 5
+      },
+      {
+       "days_per_week": 4,
+       "hours_per_day": 5
+      }
+     ],
+     "best_when": "has mastered floor care and wants to add facing shelves"
+    }
+   ]
+  },
+  {
+   "title": "Front Lot and Welcome Helper",
+   "summary": "Keeps carts flowing from the lot to the entrance and greets customers at the door, pointing them to aisles or handing questions to a coworker.",
+   "task_ids": [
+    "t6",
+    "t1"
+   ],
+   "hours_per_week": {
+    "min": 10,
+    "max": 15
+   },
+   "schedule": "weekday late mornings into lunch, when cart traffic is highest; daylight only",
+   "pay_note": "same $16-18 starting range as other associates",
+   "ef_profile": {
+    "working_memory": 1,
+    "sequencing": 1,
+    "time_management": 1,
+    "attention": 2,
+    "organization": 1,
+    "flexibility": 1,
+    "social_communication": 2,
+    "sensory_load": 2,
+    "paperwork": 0
+   },
+   "support_intensity": "moderate",
+   "supports": [
+    "parking-lot safety training and a high-visibility vest",
+    "short greeting script and a store map card for product questions",
+    "a buddy at customer service to hand harder questions to",
+    "job coach on site for the first weeks; check-ins every 2 weeks",
+    "breaks in a quiet area; weather gear provided"
+   ],
+   "frees_up": "cashiers called out to the lot when carts run low",
+   "why_this_bundle": "both tasks sit at the front entrance and share the same busy window",
+   "growth_path": "add facing shelves (t5), then expiration checks (t12), then register backup only if the person wants it",
+   "variations": [
+    {
+     "name": "Core",
+     "task_ids": [
+      "t6"
+     ],
+     "schedules": [
+      {
+       "days_per_week": 2,
+       "hours_per_day": 2,
+       "days": "two weekday late mornings"
+      },
+      {
+       "days_per_week": 3,
+       "hours_per_day": 2
+      }
+     ],
+     "best_when": "likes moving around outdoors and prefers little customer conversation"
+    },
+    {
+     "name": "Standard",
+     "task_ids": [
+      "t6",
+      "t1"
+     ],
+     "schedules": [
+      {
+       "days_per_week": 3,
+       "hours_per_day": 3
+      },
+      {
+       "days_per_week": 3,
+       "hours_per_day": 5
+      }
+     ],
+     "best_when": "comfortable with short, scripted greetings between cart rounds"
+    }
+   ]
+  },
+  {
+   "title": "Shelf and Freshness Helper",
+   "summary": "Keeps shelves full-looking and safe: faces products forward and pulls expired items from a set list of aisles each day.",
+   "task_ids": [
+    "t5",
+    "t12"
+   ],
+   "hours_per_week": {
+    "min": 10,
+    "max": 15
+   },
+   "schedule": "weekday mornings after the delivery is stocked",
+   "pay_note": "same $16-18 starting range as other associates",
+   "ef_profile": {
+    "working_memory": 1,
+    "sequencing": 1,
+    "time_management": 1,
+    "attention": 2,
+    "organization": 2,
+    "flexibility": 1,
+    "social_communication": 1,
+    "sensory_load": 1,
+    "paperwork": 2
+   },
+   "support_intensity": "moderate",
+   "supports": [
+    "aisle-by-aisle route card for each day",
+    "picture guide to reading date codes, with a magnifier if wanted",
+    "picture log or a scan-only log for pulled items",
+    "supervisor sets which aisles to check each day",
+    "job coach on site for the first weeks; check-ins every 2 weeks"
+   ],
+   "frees_up": "stockers and managers who check dates at closing",
+   "why_this_bundle": "both tasks walk the same aisles and use the same 'shelf looks right' standard",
+   "growth_path": "add stocking with date rotation (t4), then price tags (t13)",
+   "variations": [
+    {
+     "name": "Core",
+     "task_ids": [
+      "t5"
+     ],
+     "schedules": [
+      {
+       "days_per_week": 2,
+       "hours_per_day": 2,
+       "days": "two weekday mornings"
+      },
+      {
+       "days_per_week": 3,
+       "hours_per_day": 3
+      }
+     ],
+     "best_when": "wants to learn the aisles by facing before checking dates"
+    },
+    {
+     "name": "Standard",
+     "task_ids": [
+      "t5",
+      "t12"
+     ],
+     "schedules": [
+      {
+       "days_per_week": 3,
+       "hours_per_day": 3
+      },
+      {
+       "days_per_week": 3,
+       "hours_per_day": 5
+      }
+     ],
+     "best_when": "comfortable reading date codes with a picture guide"
+    },
+    {
+     "name": "Plus",
+     "task_ids": [
+      "t5",
+      "t12",
+      "t4"
+     ],
+     "schedules": [
+      {
+       "days_per_week": 3,
+       "hours_per_day": 5
+      }
+     ],
+     "best_when": "ready to stock with date rotation"
+    }
+   ]
+  }
+ ],
+ "questions_for_employer": [
+  "Is 'lift up to 50 lbs' essential for every associate, or only for unloading trucks? The helper roles carry lighter loads.",
+  "Can these roles be weekday daytime only? The posting asks for evenings and weekends.",
+  "Confirm the starting wage for helpers is the same $16-18 range as associates.",
+  "Is 'strong multitasking in a fast-paced environment' needed for these roles, or only for register work?",
+  "Who supervises each role, and who is the backup?",
+  "What cleaning chemicals are used, and what safety training do all staff get?",
+  "Does the parking lot have a safe walking path for cart retrieval?",
+  "How are pulled expired items logged today?",
+  "Would you start with one person in one role, then decide on more?"
+ ],
+ "guardrail_notes": [
+  "No client information was used.",
+  "Register, cash, baler, complaints, and opening or closing stay with current staff (keep-with-staff).",
+  "Support intensity describes each role, not who may apply. Hours or pay changes go to an ERI benefits counselor."
+ ],
+ "customization": null
+}
