@@ -1,6 +1,6 @@
 # Challenge P4: Employer Opportunity & Support Hub
 
-What ERI would need: (your team writes this)
+What ERI would need: a free ChatGPT account (or any agent that loads skill folders) and one file, `kwik-tripify/chatgpt-kit/ERI-Helper-Kit.md`; staff paste a public job posting and get draft helper roles to review. No install, no paid service, no client data. See [kwik-tripify/](kwik-tripify/README.md).
 
 **PRD:** [wiki/prds/p4-employer-hub.md](../../wiki/prds/p4-employer-hub.md) ·
 **ERI's own words:** [docs/eri-problem-statements.md](../../docs/eri-problem-statements.md#project-4-employer-opportunity--support-hub) ·
